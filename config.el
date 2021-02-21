@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Seyyid İbrahim Güleç"
+      user-mail-address "seyyidibrahimgulec@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -25,7 +25,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-snazzy)
+(use-package color-theme-sanityinc-tomorrow)
+(setq doom-theme 'sanityinc-tomorrow-eighties)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -54,13 +55,13 @@
 ;; they are implemented.
 
 ;; Full Screen on Startup
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 ;; Macos Key Bindings
 (setq mac-option-key-is-meta nil
-	    mac-command-key-is-meta t
-	    mac-command-modifier 'meta
-	    mac-option-modifier 'none)
+      mac-command-key-is-meta t
+      mac-command-modifier 'meta
+      mac-option-modifier 'none)
 
 ;; Some Extra Keybindings
 ;; source: spacemacs' better default layer
@@ -93,13 +94,69 @@
 (use-package multiple-cursors
   :init (setq mc/always-run-for-all t)
   :bind (("C-M-n" . mc/mark-next-like-this)
-	       ("C-M-p" . mc/mark-previous-like-this)
-	       ("C-M-S-n" . mc/skip-to-next-like-this)
-	       ("C-M-S-p" . mc/skip-to-previous-like-this)
-	       ("C-S-n" . mc/unmark-previous-like-this)
-	       ("C-S-p" . mc/unmark-next-like-this)
-	       ("C-M-<mouse-1>" . mc/add-cursor-on-click)))
+	 ("C-M-p" . mc/mark-previous-like-this)
+	 ("C-M-S-n" . mc/skip-to-next-like-this)
+	 ("C-M-S-p" . mc/skip-to-previous-like-this)
+	 ("C-S-n" . mc/unmark-previous-like-this)
+	 ("C-S-p" . mc/unmark-next-like-this)
+	 ("C-M-<mouse-1>" . mc/add-cursor-on-click)))
 
-;; Helm Projectile
-(use-package helm-projectile
-  :bind ("C-x f" . helm-projectile))
+;; Counsel Projectile
+(use-package! counsel-projectile
+  :bind ("C-x f" . counsel-projectile))
+
+;; Agressive indent
+(use-package! aggressive-indent
+  :hook (emacs-lisp-mode . aggressive-indent-mode))
+
+;; Pyright
+(use-package! lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp))))  ; or lsp-deferred
+
+;; (use-package! helm-ag)
+
+(use-package lsp-mode
+  :commands lsp
+  :custom
+  (lsp-file-watch-threshold 500000))
+
+(setq tab-always-indent t)
+
+(use-package turkish)
+
+(use-package org-superstar
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+;; Increase the size of various headings
+(eval-after-load org
+  (set-face-attribute 'org-document-title nil :font "Cantarell" :weight 'bold :height 1.3))
+(dolist (face '((org-level-1 . 1.2)
+                (org-level-2 . 1.1)
+                (org-level-3 . 1.05)
+                (org-level-4 . 1.0)
+                (org-level-5 . 1.1)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.1)
+                (org-level-8 . 1.1)))
+  (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+
+;; Make sure org-indent face is available
+(require 'org-indent)
+
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
+(set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
