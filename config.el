@@ -89,15 +89,15 @@
 
 
 ;; Expand Region
-(use-package expand-region
+(use-package! expand-region
   :init
   (setq expand-region-fast-keys-enabled nil
-	      expand-region-subword-enabled t)
+	expand-region-subword-enabled t)
   :bind (("C-t" . er/expand-region)))
 
 
 ;; Multiple Cursors
-(use-package multiple-cursors
+(use-package! multiple-cursors
   :init (setq mc/always-run-for-all t)
   :bind (("C-M-n" . mc/mark-next-like-this)
 	 ("C-M-p" . mc/mark-previous-like-this)
@@ -124,7 +124,7 @@
 
 ;; (use-package! helm-ag)
 
-(use-package lsp-mode
+(use-package! lsp-mode
   :commands lsp
   :custom
   (lsp-file-watch-threshold 500000))
@@ -133,7 +133,7 @@
 
 (use-package turkish)
 
-(use-package org
+(use-package! org
   :defer t
   :config
   (set-face-attribute 'org-document-title nil :font "Cantarell" :weight 'bold :height 1.3)
@@ -156,14 +156,14 @@
   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
-(use-package org-indent
+(use-package! org-indent
   :defer t
   :after org
   :config
   (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
 
 
-(use-package org-tempo
+(use-package! org-tempo
   :defer t
   :after org
   :config
@@ -175,7 +175,7 @@
   (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
   (add-to-list 'org-structure-template-alist '("json" . "src json")))
 
-(use-package org-superstar
+(use-package! org-superstar
   :after org
   :hook (org-mode . org-superstar-mode)
   :custom
