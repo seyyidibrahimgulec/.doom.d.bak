@@ -25,8 +25,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(use-package color-theme-sanityinc-tomorrow)
-(setq doom-theme 'sanityinc-tomorrow-eighties)
+;; (use-package color-theme-sanityinc-tomorrow)
+(setq doom-theme 'doom-city-lights)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -55,7 +55,14 @@
 ;; they are implemented.
 
 ;; Full Screen on Startup
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+;; (toggle-frame-fullscreen)
+(setq ns-auto-hide-menu-bar t)
+(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+
 
 ;; Macos Key Bindings
 (setq mac-option-key-is-meta nil
@@ -128,8 +135,8 @@
 (use-package turkish)
 
 (use-package org
+  :defer t
   :config
-  (message "naber")
   (set-face-attribute 'org-document-title nil :font "Cantarell" :weight 'bold :height 1.3)
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
@@ -151,15 +158,14 @@
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 (use-package org-indent
+  :defer t
   :after org
   :config
-  (message "naber")
   (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
 
 (use-package org-superstar
   :after org
   :hook (org-mode . org-superstar-mode)
   :custom
-  (message "naber")
   (org-superstar-remove-leading-stars t)
   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))

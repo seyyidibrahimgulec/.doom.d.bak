@@ -52,5 +52,5 @@
 (package! lsp-pyright)
 (package! aggressive-indent)
 (package! turkish)
-(package! color-theme-sanityinc-tomorrow)
+;; (package! color-theme-sanityinc-tomorrow)
 (package! org-superstar)
