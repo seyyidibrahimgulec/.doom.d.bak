@@ -25,7 +25,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (use-package color-theme-sanityinc-tomorrow)
-(setq doom-theme 'doom-city-lights)
+(setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -76,7 +76,7 @@
 	  `backward-kill-word' otherwise."
   (interactive)
   (if (region-active-p)
-	    (call-interactively 'kill-region)
+      (call-interactively 'kill-region)
     (backward-kill-word 1)))
 
 (global-set-key (kbd "C-w") 'backward-kill-word-or-region)
@@ -136,31 +136,23 @@
 (use-package! org
   :defer t
   :config
-  (set-face-attribute 'org-document-title nil :font "Cantarell" :weight 'bold :height 1.3)
-  (dolist (face '((org-level-1 . 1.2)
-                  (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.0)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
+  (set-face-attribute 'org-document-title nil :font "Cantarell" :weight 'bold :height 1.4)
+  (dolist (face '((org-level-1 . 1.4)
+                  (org-level-2 . 1.35)
+                  (org-level-3 . 1.3)
+                  (org-level-4 . 1.25)
+                  (org-level-5 . 1.2)
+                  (org-level-6 . 1.15)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
-  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+    (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face))))
 
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
-(use-package! org-indent
-  :defer t
-  :after org
-  :config
-  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
+;; (use-package! org-indent
+;;   :defer t
+;;   :after org
+;;   :config
+;;   (set-face-attribute 'org-indent nil :inherit '(org-hide variable-pitch)))
 
 
 (use-package! org-tempo
@@ -180,4 +172,16 @@
   :hook (org-mode . org-superstar-mode)
   :custom
   (org-superstar-remove-leading-stars t)
-  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+  (org-superstar-headline-bullets-list '("◉" "○" "❄️" "○" "●" "○" "●")))
+
+(use-package! speed-type
+  :defer t)
+
+
+(use-package! beacon
+  :config
+  (beacon-mode 1))
+
+
+(use-package! git-link
+  :commands git-link)

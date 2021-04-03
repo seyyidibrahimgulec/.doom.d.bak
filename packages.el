@@ -54,3 +54,6 @@
 (package! turkish)
 ;; (package! color-theme-sanityinc-tomorrow)
 (package! org-superstar)
+(package! speed-type)
+(package! beacon)
+(package! git-link)
